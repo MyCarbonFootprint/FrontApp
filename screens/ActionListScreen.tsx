@@ -41,7 +41,7 @@ export default class ActionListScreen extends React.Component {
               description: item.description,
               unit: item.unit,
               source: item.source,
-              family: item.family,
+              family: item.family_id,
               score: item.score
             })),
             errorMessage: false
@@ -58,19 +58,21 @@ export default class ActionListScreen extends React.Component {
   }
 
   onItemClickHandler(item) {
+
+    let { myActions, myActionId} = this.props.route.params
     // Create params to change layout
-    this.props.route.params.myActions[this.props.route.params.myActionId] = {
+    myActions[myActionId] = {
       'id': item.id,
       'name': item.name,
       'description': item.description,
       // Default coef
-      'coef': 1,
+      'coef': 0,
       // Unit of the action
       'unit': item.unit,
       // ID of the action in the array
-      'myActionId': this.props.route.params.myActionId,
+      'myActionId': myActionId,
       // Bool to know if the coef input is valid
-      'inputValidity': item.inputValidity,
+      'inputValidity': myActions[myActionId].inputValidity,
       // score of the action
       'score': item.score,
       // Family of the action
@@ -78,9 +80,9 @@ export default class ActionListScreen extends React.Component {
     }
     // Change layout to calcul page
     this.props.navigation.navigate(
-      'calcul',
+      'Mon Empreinte Carbone',
       {
-        myActions: this.props.route.params.myActions
+        myActions: myActions
       })
   }
 

@@ -54,7 +54,12 @@ export default class CalculButton extends React.Component {
         title="Calculer son empreinte"
         buttonStyle={{ width: 150 }}
         containerStyle={{ margin: 5 }}
-        disabled={this.props.myActions.filter(action => action.inputValidity === false).length > 0 || this.props.myActions.length == 0}
+        disabled={
+          // Check if not inputValidity is false
+          ((this.props.myActions.filter(action => action.inputValidity == false)).length > 0 && this.props.myActions.length > 0) ||
+          // Check if myActions isn't empty
+          this.props.myActions.length == 0
+        }
         onPress={() =>
           this.calculCarbonFingerprint(
             this.props

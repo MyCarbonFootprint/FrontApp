@@ -1,8 +1,7 @@
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 
-import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
 import ImpactCalculScreen from '../screens/ImpactCalculScreen';
 import LinkingConfiguration from './LinkingConfiguration';
@@ -26,7 +25,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="calcul" component={ImpactCalculScreen} />
+      <Stack.Screen name="Mon Empreinte Carbone" component={ImpactCalculScreen} />
       <Stack.Screen name="actions" component={ActionListScreen} />
     </Stack.Navigator>
   );

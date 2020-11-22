@@ -24,7 +24,7 @@ export default class ImpactCalculScreen extends React.Component {
     this.setModalVisible = this.setModalVisible.bind(this)
   }
 
-  setModalVisible = (visible) => {
+  setModalVisible = (visible: Boolean) => {
     this.setState({ modalVisible: visible });
   }
 
@@ -38,7 +38,7 @@ export default class ImpactCalculScreen extends React.Component {
 
   onChangeCoef(coef, myActionIndex) {
     // Set inputValidity to false if it is not a number
-    if (coef%1 != 0 || coef == '') {
+    if (coef%1 != 0 || coef == '' || coef == 0) {
       this.state.myActions[myActionIndex].inputValidity = false
     } else {
       // Change coef and inputValidity of the action
@@ -106,7 +106,7 @@ export default class ImpactCalculScreen extends React.Component {
           leftComponent={{ icon: 'menu' }}
           centerComponent={{ text: 'Calculer son empreinte carbone du jour' }}
         />
-        <View style={{padding: 15}}>
+        <View>
           { myActions.map((action) =>
             <ActionOfTheDay
               key={action.myActionId}

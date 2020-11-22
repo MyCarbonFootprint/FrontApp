@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Divider } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { View, Text, StyleSheet } from 'react-native';
 import Modal from 'modal-enhanced-react-native-web';
@@ -17,7 +17,7 @@ export default class CalculResult extends React.Component {
     const styles = StyleSheet.create({
       result: {
         flexDirection: "row",
-        padding: 20,
+        padding: 10,
         margin: 10,
         justifyContent: 'center',
         alignItems: "center",
@@ -54,11 +54,12 @@ export default class CalculResult extends React.Component {
             <Text h4>{dayImpact} gCO2eq</Text>
             <Button
               onPress={() => setModalVisible(true)}
+              type="clear"
               icon={
                 <Icon
-                  name="info-outline"
+                  name="information-outline"
                   size={20}
-                  color="white"
+                  color="grey"
                 />
               }
             />
@@ -77,12 +78,13 @@ export default class CalculResult extends React.Component {
                   Cela correspond à l'impact direct et indirect d'une action de l'homme en terme d'émissions de gaz à effet de serre.
                 </Text>
                 <Button
+                  type="outline"
                   onPress={() => setModalVisible(!modalVisible)}
                   icon={
                     <Icon
                       name="close"
                       size={20}
-                      color="white"
+                      color="blue"
                     />
                   }
                 />
