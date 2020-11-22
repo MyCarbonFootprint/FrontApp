@@ -1,26 +1,39 @@
 import * as React from 'react';
-import { Button, Text, Header } from 'react-native-elements';
+import { Button, Header } from 'react-native-elements';
 import { StyleSheet, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import CalculButton from '../components/ImpactCalcul/CalculButton';
 import ActionOfTheDay from '../components/ImpactCalcul/ActionOfTheDay';
+import CalculResult from '../components/ImpactCalcul/CalculResult';
 
 export default class ImpactCalculScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       myActions: [],
-      dayImpact: null
+      dayImpact: null,
+      modalVisible: false,
+      errorMessage: false
     };
     this.onDayImpactChange = this.onDayImpactChange.bind(this)
     this.addAction = this.addAction.bind(this)
     this.removeAction = this.removeAction.bind(this)
     this.onChangeCoef = this.onChangeCoef.bind(this)
+    this.displayErrorMessage = this.displayErrorMessage.bind(this)
+    this.setModalVisible = this.setModalVisible.bind(this)
+  }
+
+  setModalVisible = (visible) => {
+    this.setState({ modalVisible: visible });
   }
 
   onDayImpactChange(newDayImpact: number) {
     this.setState({dayImpact: newDayImpact});
+  }
+
+  displayErrorMessage(display: Boolean) {
+    this.setState({errorMessage: display});
   }
 
   onChangeCoef(coef, myActionIndex) {
@@ -55,7 +68,6 @@ export default class ImpactCalculScreen extends React.Component {
       id = 0
     } else {
       id = this.state.myActions[this.state.myActions.length - 1].myActionId + 1;
-      console.log(id)
     }
     // Update state with the new action
     let cMyActions = this.state.myActions
@@ -83,30 +95,22 @@ export default class ImpactCalculScreen extends React.Component {
         flexDirection: "row",
         justifyContent: "space-around",
         padding: 20
-      },
-      result: {
-        flexDirection: "row",
-        padding: 20,
-        margin: 10,
-        justifyContent: 'center',
-        alignItems: "center",
-        borderWidth: 2,
-        borderColor: '#1BFF00'
       }
     });
+
+    const { errorMessage, modalVisible, dayImpact, myActions } = this.state;
 
     return (
       <View style={{flex: 1, backgroundColor: 'white'}}>
         <Header
           leftComponent={{ icon: 'menu' }}
           centerComponent={{ text: 'Calculer son empreinte carbone du jour' }}
-          rightComponent={{ icon: 'home' }}
         />
         <View style={{padding: 15}}>
-          { this.state.myActions.map((action) =>
+          { myActions.map((action) =>
             <ActionOfTheDay
               key={action.myActionId}
-              myActions={this.state.myActions}
+              myActions={myActions}
               myAction={action}
               navigation={this.props.navigation}
               removeAction={this.removeAction}
@@ -130,17 +134,19 @@ export default class ImpactCalculScreen extends React.Component {
         <View>
           <View style={[styles.horizontal]}>
             <CalculButton
-              dayImpact={this.state.dayImpact}
-              myActions={this.state.myActions}
+              dayImpact={dayImpact}
+              myActions={myActions}
               onDayImpactChange={this.onDayImpactChange}
+              displayErrorMessage={this.displayErrorMessage}
             />
           </View>
-          {this.state.dayImpact != null ?
-            <View style={[styles.result]}>
-              <Text h4>{this.state.dayImpact}</Text><Text> gCO2eq</Text>
-            </View>
-          : null }
         </View>
+        <CalculResult
+          dayImpact={dayImpact}
+          errorMessage={errorMessage}
+          modalVisible={modalVisible}
+          setModalVisible={this.setModalVisible}
+        />
       </View>
     );
   }

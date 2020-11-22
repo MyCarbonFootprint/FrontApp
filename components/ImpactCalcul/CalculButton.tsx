@@ -36,9 +36,13 @@ export default class CalculButton extends React.Component {
       .then(
         (data) => {
           this.setState({ daily_impact: data.daily_impact });
+          this.props.displayErrorMessage(false)
         }
       )
-      .catch((error) => console.error(error))
+      .catch((error) => {
+        console.error(error)
+        this.props.displayErrorMessage(true)
+      })
       .finally(() => {
         this.props.onDayImpactChange(this.state.daily_impact)
       });

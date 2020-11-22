@@ -10,15 +10,17 @@ export default class ActionListScreen extends React.Component {
     this.state = {
       actions: [],
       search: '',
-      isLoading: true
+      isLoading: true,
+      errorMessage: false
     };
   }
 
-  updateSearch = (search) => {
+  updateSearch = (search: string) => {
     this.setState({ search });
   };
 
   componentDidMount() {
+    // Get actions
     fetch('http://backapp.fafa10b7-aa93-4e11-b165-44f0139739c2.nodes.k8s.fr-par.scw.cloud/v1/action', {
       headers: new Headers({
         'Authorization': 'Basic cJjSeZVVh98VLHjKpjfVR5cZyqh9hC'
@@ -37,27 +39,44 @@ export default class ActionListScreen extends React.Component {
               id: item.id,
               name: item.name,
               description: item.description,
-              unit: item.unit
-            }))
+              unit: item.unit,
+              source: item.source,
+              family: item.family,
+              score: item.score
+            })),
+            errorMessage: false
           });
         }
       )
-      .catch((error) => console.error(error))
+      .catch((error) => {
+        console.error(error)
+        this.setState({ errorMessage: true });
+      })
       .finally(() => {
         this.setState({ isLoading: false });
       });
   }
 
   onItemClickHandler(item) {
+    // Create params to change layout
     this.props.route.params.myActions[this.props.route.params.myActionId] = {
       'id': item.id,
       'name': item.name,
       'description': item.description,
+      // Default coef
       'coef': 1,
+      // Unit of the action
       'unit': item.unit,
+      // ID of the action in the array
       'myActionId': this.props.route.params.myActionId,
-      'inputValidity': item.inputValidity
+      // Bool to know if the coef input is valid
+      'inputValidity': item.inputValidity,
+      // score of the action
+      'score': item.score,
+      // Family of the action
+      'family': item.family
     }
+    // Change layout to calcul page
     this.props.navigation.navigate(
       'calcul',
       {
@@ -65,30 +84,32 @@ export default class ActionListScreen extends React.Component {
       })
   }
 
-  keyExtractor = (id) => id.toString()
-
+  // Get the key for each item
+  keyExtractor = (item) => item.id.toString()
+  // Rendering of each item
   renderItem = ({ item }) => (
     <ListItem
       bottomDivider
-      key={item.id}
       onPress={() => this.onItemClickHandler(item)}
     >
       <ListItem.Content>
         <ListItem.Title>{item.name}</ListItem.Title>
         <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
       </ListItem.Content>
-      <ListItem.Chevron />
+      <ListItem.Chevron/>
     </ListItem>
   )
 
   render() {
-    const { actions, search, isLoading } = this.state;
+    // Get state
+    const { errorMessage, actions, search, isLoading } = this.state;
 
     // filter actions displayed based on search bar
     let displayActions = actions.filter(
       action => action.name.toLowerCase().includes(search.toLowerCase())
     )
 
+    // CSS
     const styles = StyleSheet.create({
       container: {
         flex: 1,
@@ -106,14 +127,20 @@ export default class ActionListScreen extends React.Component {
         <Header
           leftComponent={{ icon: 'menu' }}
           centerComponent={{ text: 'Choisir une action' }}
-          rightComponent={{ icon: 'home' }}
         />
         { isLoading == true ?
+          // Display loading
           <View style={[styles.container, styles.horizontal]}>
             <ActivityIndicator size="large" />
           </View>
         :
           <View>
+            { errorMessage ?
+              // Display an error message if there is a problem with the API call
+              <Text>
+                Il y a un problème avec le serveur, contactez l'administrateur svp.
+              </Text>
+            : null }
             <SearchBar
               placeholder="Rechercher une action..."
               onChangeText={this.updateSearch}
