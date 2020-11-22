@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { View, Text, StyleSheet } from 'react-native';
-import Modal from 'modal-enhanced-react-native-web';
+import { View, Text, StyleSheet, Modal } from 'react-native';
 
 export default class CalculResult extends React.Component {
   constructor(props) {

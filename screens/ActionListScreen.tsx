@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FlatList, ActivityIndicator, StyleSheet, View } from 'react-native';
-import { ListItem, ThemeProvider, SearchBar, Header } from 'react-native-elements'
+import { ListItem, ThemeProvider, SearchBar } from 'react-native-elements'
 
 import MyHeader from '../components/ImpactCalcul/MyHeader';
 

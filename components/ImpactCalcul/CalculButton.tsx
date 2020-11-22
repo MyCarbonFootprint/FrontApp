@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Button } from 'react-native-elements';
 
-
 export default class CalculButton extends React.Component {
   constructor(props) {
     super(props);
