@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Input, Text } from 'react-native-elements';
+import { Button, Input, Text, Badge } from 'react-native-elements';
 import { View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -12,27 +12,41 @@ export default class ActionOfTheDay extends React.Component {
   }
 
   render() {
+    // Get props
     let { myAction, myActions, removeAction, onChangeCoef } = this.props
     let myActionId = myAction.myActionId
     let myActionIndex = myActions.indexOf(myAction);
+
+    // Define color or the border
+    let color_per_score = {
+      // Black
+      5: "#2c3e50",
+      // Red
+      4: "#e74c3c",
+      // Orange
+      3: "#f39c12",
+      // Yellow
+      2: "#f1c40f",
+      // Green
+      1: "#2ecc71"
+    }
+    let myActionColor = color_per_score[myActions[myActionIndex].score]
 
     const styles = StyleSheet.create({
       coef: {
         flexDirection: "row",
         justifyContent: 'center',
-        alignItems: "center",
-        // backgroundColor: "red"
+        alignItems: "center"
       },
       title: {
         flexDirection: "row",
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        // backgroundColor: "blue"
+        justifyContent: 'center',
+        alignItems: 'center'
       },
       container: {
         padding: 10,
         margin: 10,
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: '#EAEAEA'
       }
     });
@@ -40,7 +54,11 @@ export default class ActionOfTheDay extends React.Component {
     return (
       <View style={[styles.container]}>
         <View style={[styles.title]}>
-          <Text h4>{myActions[myActionIndex].name}</Text>
+          <Text h4>{myActions[myActionIndex].name} </Text>
+          <Badge
+            value={myActions[myActionIndex].score}
+            badgeStyle={{ backgroundColor: myActionColor}}
+          />
         </View>
         <View style={[styles.coef]}>
           <Input

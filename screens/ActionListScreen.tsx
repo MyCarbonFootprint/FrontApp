@@ -2,6 +2,7 @@ import * as React from 'react';
 import { FlatList, ActivityIndicator, StyleSheet, View } from 'react-native';
 import { ListItem, ThemeProvider, SearchBar, Header } from 'react-native-elements'
 
+import MyHeader from '../components/ImpactCalcul/MyHeader';
 
 export default class ActionListScreen extends React.Component {
   constructor(props) {
@@ -126,9 +127,8 @@ export default class ActionListScreen extends React.Component {
 
     return (
       <ThemeProvider>
-        <Header
-          leftComponent={{ icon: 'menu' }}
-          centerComponent={{ text: 'Choisir une action' }}
+        <MyHeader
+          title="Choisir une action"
         />
         { isLoading == true ?
           // Display loading

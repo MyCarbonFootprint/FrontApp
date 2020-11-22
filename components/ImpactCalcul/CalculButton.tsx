@@ -52,7 +52,7 @@ export default class CalculButton extends React.Component {
     return (
       <Button
         title="Calculer son empreinte"
-        buttonStyle={{ width: 150 }}
+        buttonStyle={{ width: 150, backgroundColor: "#2ecc71" }}
         containerStyle={{ margin: 5 }}
         disabled={
           // Check if not inputValidity is false

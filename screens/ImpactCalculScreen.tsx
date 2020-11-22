@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CalculButton from '../components/ImpactCalcul/CalculButton';
 import ActionOfTheDay from '../components/ImpactCalcul/ActionOfTheDay';
 import CalculResult from '../components/ImpactCalcul/CalculResult';
+import MyHeader from '../components/ImpactCalcul/MyHeader';
 
 export default class ImpactCalculScreen extends React.Component {
   constructor(props) {
@@ -102,9 +103,8 @@ export default class ImpactCalculScreen extends React.Component {
 
     return (
       <View style={{flex: 1, backgroundColor: 'white'}}>
-        <Header
-          leftComponent={{ icon: 'menu' }}
-          centerComponent={{ text: 'Calculer son empreinte carbone du jour' }}
+        <MyHeader
+          title="Calculer son empreinte du jour"
         />
         <View>
           { myActions.map((action) =>
@@ -122,6 +122,7 @@ export default class ImpactCalculScreen extends React.Component {
           <Button
             onPress={() => this.addAction()}
             containerStyle={{ margin: 5 }}
+            buttonStyle={{ backgroundColor: "#2ecc71" }}
             icon={
               <Icon
                 name="plus-circle"
@@ -131,15 +132,13 @@ export default class ImpactCalculScreen extends React.Component {
             }
           />
         </View>
-        <View>
-          <View style={[styles.horizontal]}>
-            <CalculButton
-              dayImpact={dayImpact}
-              myActions={myActions}
-              onDayImpactChange={this.onDayImpactChange}
-              displayErrorMessage={this.displayErrorMessage}
-            />
-          </View>
+        <View style={[styles.horizontal]}>
+          <CalculButton
+            dayImpact={dayImpact}
+            myActions={myActions}
+            onDayImpactChange={this.onDayImpactChange}
+            displayErrorMessage={this.displayErrorMessage}
+          />
         </View>
         <CalculResult
           dayImpact={dayImpact}

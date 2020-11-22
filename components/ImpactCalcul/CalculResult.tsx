@@ -28,6 +28,7 @@ export default class CalculResult extends React.Component {
         flex: 0.5,
         justifyContent: "center",
         alignItems: "center",
+        margin: 20
       },
       modalView: { // Modal style
         margin: 10,
@@ -80,6 +81,7 @@ export default class CalculResult extends React.Component {
                 <Button
                   type="outline"
                   onPress={() => setModalVisible(!modalVisible)}
+                  style={{ padding: 10 }}
                   icon={
                     <Icon
                       name="close"
