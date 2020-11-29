@@ -1,8 +1,5 @@
 FROM node:15.0-alpine as build
 
-# Set timezone
-ENV TZ Europe/Paris
-
 # Add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
 
@@ -20,6 +17,9 @@ RUN expo build:web
 
 # Production environment
 FROM nginx:1.19-alpine
+
+# Set timezone
+ENV TZ Europe/Paris
 
 # Copy built app
 COPY --from=build /app/web-build /var/www
