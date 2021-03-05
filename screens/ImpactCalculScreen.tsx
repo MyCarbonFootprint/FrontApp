@@ -7,7 +7,6 @@ import CalculButton from '../components/ImpactCalcul/CalculButton';
 import ActionOfTheDay from '../components/ImpactCalcul/ActionOfTheDay';
 import CalculResult from '../components/ImpactCalcul/CalculResult';
 import MyHeader from '../components/ImpactCalcul/MyHeader';
-import AverageChart from '../components/Charts/AverageChart'
 
 export default class ImpactCalculScreen extends React.Component {
   constructor(props) {
@@ -146,9 +145,6 @@ export default class ImpactCalculScreen extends React.Component {
           errorMessage={errorMessage}
           modalVisible={modalVisible}
           setModalVisible={this.setModalVisible}
-        />
-        <AverageChart
-          dayImpact={dayImpact}
         />
       </View>
     );
