@@ -7,6 +7,7 @@ import CalculButton from '../components/ImpactCalcul/CalculButton';
 import ActionOfTheDay from '../components/ImpactCalcul/ActionOfTheDay';
 import CalculResult from '../components/ImpactCalcul/CalculResult';
 import MyHeader from '../components/ImpactCalcul/MyHeader';
+import AverageChart from '../components/Charts/AverageChart'
 
 export default class ImpactCalculScreen extends React.Component {
   constructor(props) {
@@ -25,7 +26,7 @@ export default class ImpactCalculScreen extends React.Component {
     this.setModalVisible = this.setModalVisible.bind(this)
   }
 
-  setModalVisible = (visible: Boolean) => {
+  setModalVisible = (visible: boolean) => {
     this.setState({ modalVisible: visible });
   }
 
@@ -33,7 +34,7 @@ export default class ImpactCalculScreen extends React.Component {
     this.setState({dayImpact: newDayImpact});
   }
 
-  displayErrorMessage(display: Boolean) {
+  displayErrorMessage(display: boolean) {
     this.setState({errorMessage: display});
   }
 
@@ -145,6 +146,9 @@ export default class ImpactCalculScreen extends React.Component {
           errorMessage={errorMessage}
           modalVisible={modalVisible}
           setModalVisible={this.setModalVisible}
+        />
+        <AverageChart
+          dayImpact={dayImpact}
         />
       </View>
     );

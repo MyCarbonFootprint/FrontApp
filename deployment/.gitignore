@@ -3,6 +3,7 @@ service-account.json
 
 # Terraform
 .terraform/
+.terraform.lock.hcl
 
 # secret file
 .env
