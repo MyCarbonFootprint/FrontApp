@@ -22,7 +22,7 @@ export default class ActionListScreen extends React.Component {
 
   componentDidMount() {
     // Get actions
-    fetch('http://backapp.fafa10b7-aa93-4e11-b165-44f0139739c2.nodes.k8s.fr-par.scw.cloud/v1/action', {
+    fetch('http://backapp.052cdb16-1180-46a3-b5a1-0a09caf2a419.nodes.k8s.fr-par.scw.cloud/v1/action', {
       headers: new Headers({
         'Authorization': 'Basic cJjSeZVVh98VLHjKpjfVR5cZyqh9hC'
       }),
